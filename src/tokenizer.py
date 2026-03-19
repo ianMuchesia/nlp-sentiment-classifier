@@ -1,5 +1,6 @@
 import string
 from collections import Counter
+import json
 
 
 class Tokenizer:
@@ -116,6 +117,19 @@ class Tokenizer:
             decoded_sentences.append(words)
             
         return decoded_sentences
+    
+    
+    def save(self,filepath="vocab.json"):
+        with open(filepath,"w") as f:
+            json.dump(self.word_to_id,f)
+            
+            
+        
+    def load(self,filepath="vocab.json"):
+        with open(filepath,"r") as f:
+            self.word_to_id = json.load(f)
+            
+            self.id_to_word = {idx: word for word, idx in self.word_to_id.items()}
             
         
     
