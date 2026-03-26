@@ -4,31 +4,31 @@ from tokenizer import Tokenizer
 
 
 
-df = pd.read_csv('./data/IMDB Dataset.csv')
+# df = pd.read_csv('./data/IMDB Dataset.csv')
 
 
-print(df.head())
+# print(df.head())
 
 
-with open("./data/clean_dataset.txt",'w',encoding='utf-8') as f:
-    for index,row in df.iterrows():
-        #clean the text ( remove newlines )
-        text = row['review'].replace('\n',' ')
+# with open("./data/clean_dataset.txt",'w',encoding='utf-8') as f:
+#     for index,row in df.iterrows():
+#         #clean the text ( remove newlines )
+#         text = row['review'].replace('\n',' ')
     
-        label = row['sentiment'] 
+#         label = row['sentiment'] 
         
-        f.write(f"{text}\t{label}\n")
+#         f.write(f"{text}\t{label}\n")
         
 
 
 
 def save_split(data_slice, filename):
     with open(filename, 'w', encoding='utf-8') as f:
-        for index, row in data_slice.iterrows():
+        for row in data_slice:
             # Clean the text (remove newlines)
-            text = row['review']
+            text = row[0]
             # Map sentiment: positive -> 1, negative -> 0
-            label = 1 if row['sentiment'] == 'positive' else 0
+            label = row[1] 
             # Write to file
             f.write(f"{text}\t{label}\n")
 
@@ -38,11 +38,13 @@ def prepare_data(csv_path,max_length=250):
     #1. Load and shuffle
     df = pd.read_csv(csv_path)
     
+    
+    #shuffle and reset(dont keep the old indexes)
     df = df.sample(frac=1,random_state=42).reset_index(drop=True)
     
     #initialize your tokenizer
     tokenizer = Tokenizer()
-    tokenizer.load("./data/vocab.json")
+    tokenizer.load("./../data/vocab.json")
     
     processed_data = []
     
@@ -67,3 +69,6 @@ def prepare_data(csv_path,max_length=250):
         
         
     return processed_data
+
+
+

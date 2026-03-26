@@ -119,13 +119,13 @@ class Tokenizer:
         return decoded_sentences
     
     
-    def save(self,filepath="vocab.json"):
+    def save(self,filepath="./../data/vocab.json"):
         with open(filepath,"w") as f:
             json.dump(self.word_to_id,f)
             
             
         
-    def load(self,filepath="vocab.json"):
+    def load(self,filepath="./../data/vocab.json"):
         with open(filepath,"r") as f:
             self.word_to_id = json.load(f)
             
