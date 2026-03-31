@@ -8,9 +8,10 @@ class SentimentModel(nn.Module):
         
         
         self.embedding = nn.Embedding(num_embeddings=vocab_size,embedding_dim=embedding_dim)
-        self.fc1 = nn.Linear(in_features=100,out_features=128)
-        self.fc2 = nn.Linear(in_features=128,out_features=2)
+        self.fc1 = nn.Linear(in_features=100,out_features=64)
+        self.fc2 = nn.Linear(in_features=64,out_features=2)
         self.Relu = nn.ReLU()
+        self.dropout = nn.Dropout(0.3)
         
         
     def forward(self,x):
@@ -39,9 +40,11 @@ class SentimentModel(nn.Module):
         
         x = self.Relu(x)
         
+        x = self.dropout(x)
+        
         x = self.fc2(x)
         
-        x = torch.softmax(x)
+        #x = torch.softmax(x)
         
         return x
         
