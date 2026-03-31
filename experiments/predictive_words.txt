@@ -1,0 +1,26 @@
+Positive words: 
+ 
+and
+my
+well
+great
+think
+seen
+love
+best
+ever
+still
+ 
+ 
+Negative words: 
+ 
+dull
+disappointment
+worst
+boring
+terrible
+awful
+waste
+lame
+fails
+410

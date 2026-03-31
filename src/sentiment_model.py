@@ -47,5 +47,26 @@ class SentimentModel(nn.Module):
         #x = torch.softmax(x)
         
         return x
-        
+    
+    
+    def predict(self, text, tokenizer):
+        self.eval() 
+        with torch.no_grad():
+            # Tokenize and create a batch of 1
+            tokens = tokenizer.encode(text)
+            input_tensor = torch.tensor([tokens]).long()
+            
+            # Get raw scores (logits)
+            logits = self.forward(input_tensor)
+            
+            # Convert to probabilities
+            probs = torch.softmax(logits, dim=1)
+            
+            # Get the highest probability and its index
+            conf, index = torch.max(probs, dim=1)
+            
+            labels = ["Negative", "Positive"]
+            return labels[index.item()], conf.item()
+            
+            
    
