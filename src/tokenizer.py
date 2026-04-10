@@ -83,6 +83,8 @@ class Tokenizer:
         
         encoded_list = []
         
+        print(f"this is are sentences we are expecting :{sentences}")
+        
         for sentence in sentences:
             
             words = self.tokenize(sentence)

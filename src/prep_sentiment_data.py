@@ -50,8 +50,13 @@ def prepare_data(csv_path,max_length=250):
     
     
     for _,row in df.iterrows():
+        
         #2. Encode
         tokens = tokenizer.encode([row['review']])[0]
+        
+        
+        
+        
         
         
         #3. Pre-truncate and Pad

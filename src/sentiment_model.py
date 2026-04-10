@@ -15,6 +15,7 @@ class SentimentModel(nn.Module):
         
         
     def forward(self,x):
+        print(f"DEBUG: Input shape at start of forward: {x.shape}")
         embedded = self.embedding(x)
         
         #create the mast: (Batch, 250,100)
@@ -60,10 +61,13 @@ class SentimentModel(nn.Module):
             logits = self.forward(input_tensor)
             
             # Convert to probabilities
-            probs = torch.softmax(logits, dim=1)
+            probs = torch.softmax(logits, dim=2)
+            
+            
+            print(f"DEBUG: Shape of probs is {probs.shape}")
             
             # Get the highest probability and its index
-            conf, index = torch.max(probs, dim=1)
+            conf, index = torch.max(probs, dim=2)
             
             labels = ["Negative", "Positive"]
             return labels[index.item()], conf.item()
