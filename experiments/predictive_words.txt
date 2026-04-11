@@ -1,26 +1,26 @@
 Positive words: 
  
-and
+you
 my
 well
 great
-think
+also
 seen
 love
 best
-ever
+know
 still
  
  
 Negative words: 
  
-dull
-disappointment
-worst
-boring
-terrible
-awful
-waste
-lame
 fails
+disappointing
+laughable
+disappointment
+mediocre
+dreadful
+forgettable
 410
+310
+210

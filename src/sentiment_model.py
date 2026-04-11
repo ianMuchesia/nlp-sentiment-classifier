@@ -16,10 +16,12 @@ class SentimentModel(nn.Module):
         
     def forward(self,x):
         print(f"DEBUG: Input shape at start of forward: {x.shape}")
+        #we are receiving a tensor in shape 32,250
         embedded = self.embedding(x)
         
         #create the mast: (Batch, 250,100)
         #1 for real words, 0 for padding
+        #look at each word in the 250 array of ids of words
         mask = ( x!= 0).unsqueeze(-1).float()
         
         
@@ -54,23 +56,31 @@ class SentimentModel(nn.Module):
         self.eval() 
         with torch.no_grad():
             # Tokenize and create a batch of 1
-            tokens = tokenizer.encode(text)
-            input_tensor = torch.tensor([tokens]).long()
+            tokens = tokenizer.encode([text])
+            # print(f"DEBUG: tokens content: {tokens}")
+            # print(f"DEBUG: tokens type: {type(tokens)}")
+            input_tensor = torch.tensor(tokens).long()
             
             # Get raw scores (logits)
             logits = self.forward(input_tensor)
             
             # Convert to probabilities
-            probs = torch.softmax(logits, dim=2)
+            probs = torch.softmax(logits, dim=1)
             
             
             print(f"DEBUG: Shape of probs is {probs.shape}")
             
             # Get the highest probability and its index
-            conf, index = torch.max(probs, dim=2)
+            conf, index = torch.max(probs, dim=1)
             
             labels = ["Negative", "Positive"]
-            return labels[index.item()], conf.item()
+            
+            positive_prob = probs[0,1]
+            
+            
+            
+            
+            return labels[index.item()], positive_prob.item()
             
             
    
